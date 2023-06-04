@@ -31,6 +31,16 @@ def read_graph_data():
     
     return graph_data
 
+def read_table_data():
+    table_data = {}
+    nodes = int(input("Digite o número de nós na tabela de demandas de serviço: "))
+    for i in range(nodes):
+        node = input(f"Digite o nome do nó {i+1}: ")
+        demand = float(input(f"Digite a demanda de serviço para o nó {node}: "))
+        table_data[node] = demand
+    
+    return table_data
+
 display_menu()
 
 option = input("Digite o número da opção desejada: ")
@@ -38,7 +48,8 @@ option = input("Digite o número da opção desejada: ")
 if option == '1':
     print("\n--- Cálculo do Desempenho do Sistema ---")
     graph_data = read_graph_data()
-    # Implementação do cálculo do desempenho com base nos dados do grafo
+    table_data = read_table_data()
+    # Implementação do cálculo do desempenho com base nos dados do grafo e da tabela de demandas de serviço
 elif option == '2':
     print("\n--- Cálculo da Carga do Sistema ---")
     # Implementação do cálculo da carga
