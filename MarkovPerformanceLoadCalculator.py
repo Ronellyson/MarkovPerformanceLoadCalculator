@@ -49,7 +49,24 @@ if option == '1':
     print("\n--- Cálculo do Desempenho do Sistema ---")
     graph_data = read_graph_data()
     table_data = read_table_data()
-    # Implementação do cálculo do desempenho com base nos dados do grafo e da tabela de demandas de serviço
+
+    # Criação da matriz de desempenho
+    performance_matrix = np.zeros((len(graph_data), len(graph_data)))
+    for i, node in enumerate(graph_data):
+        for j, neighbor in enumerate(graph_data):
+            if neighbor in graph_data[node]:
+                performance_matrix[i][j] = graph_data[node][neighbor]
+
+    # Criação do vetor de demandas de serviço
+    load_vector = np.zeros(len(graph_data))
+    for i, node in enumerate(graph_data):
+        if node in table_data:
+            load_vector[i] = table_data[node]
+
+    # Cálculo do desempenho do sistema
+    performance = markov_model(performance_matrix, load_vector)
+    print(f"O desempenho do sistema é: {performance}\n")
+
 elif option == '2':
     print("\n--- Cálculo da Carga do Sistema ---")
     # Implementação do cálculo da carga
