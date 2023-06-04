@@ -16,13 +16,29 @@ def display_menu():
     print("2. Calcular a carga do sistema")
     print("0. Sair")
 
+def read_graph_data():
+    graph_data = {}
+    nodes = int(input("Digite o número de nós no grafo: "))
+    for i in range(nodes):
+        node = input(f"Digite o nome do nó {i+1}: ")
+        graph_data[node] = {}
+        
+        connections = int(input(f"Digite o número de conexões para o nó {node}: "))
+        for j in range(connections):
+            neighbor = input(f"Digite o nome do nó vizinho {j+1}: ")
+            probability = float(input(f"Digite a probabilidade de transição para o nó vizinho {neighbor}: "))
+            graph_data[node][neighbor] = probability
+    
+    return graph_data
+
 display_menu()
 
 option = input("Digite o número da opção desejada: ")
 
 if option == '1':
     print("\n--- Cálculo do Desempenho do Sistema ---")
-    # Implementação do cálculo do desempenho
+    graph_data = read_graph_data()
+    # Implementação do cálculo do desempenho com base nos dados do grafo
 elif option == '2':
     print("\n--- Cálculo da Carga do Sistema ---")
     # Implementação do cálculo da carga
