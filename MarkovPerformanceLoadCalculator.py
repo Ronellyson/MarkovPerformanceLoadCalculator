@@ -69,7 +69,26 @@ if option == '1':
 
 elif option == '2':
     print("\n--- Cálculo da Carga do Sistema ---")
-    # Implementação do cálculo da carga
+    graph_data = read_graph_data()
+    table_data = read_table_data()
+
+    # Criação da matriz de desempenho
+    performance_matrix = np.zeros((len(graph_data), len(graph_data)))
+    for i, node in enumerate(graph_data):
+        for j, neighbor in enumerate(graph_data):
+            if neighbor in graph_data[node]:
+                performance_matrix[i][j] = graph_data[node][neighbor]
+
+    # Criação do vetor de demandas de serviço
+    load_vector = np.zeros(len(graph_data))
+    for i, node in enumerate(graph_data):
+        if node in table_data:
+            load_vector[i] = table_data[node]
+
+    # Cálculo da carga do sistema
+    load = markov_load(performance_matrix, load_vector)
+    print(f"A carga do sistema é: {load}\n")
+
 elif option == '0':
     print("Encerrando o programa...")
 else:
